@@ -16,5 +16,5 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-           docker build . --file Dockerfile --name mondodb
+           docker build -t mondodb f Dockerfile .
            docker run -d -p 27017:27017 --name mongodb_container mongodb
