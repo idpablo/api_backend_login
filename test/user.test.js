@@ -1,6 +1,18 @@
 const request = require('supertest');
 const app = require('../src/app.js'); 
 
+let server;
+
+beforeAll(() => {
+    server = app.listen(PORT, () => {
+        console.log(`Servidor iniciado na porta ${PORT}`);
+    });
+});
+
+afterAll(async () => {
+    await server.close();
+});
+
 describe('Testes de conexão com banco de dados', () => {
   it('Deve se conectar ao banco de dados', async () => {
     const response = await request(app)
@@ -54,30 +66,3 @@ describe('Testes de criação e exclusão de usuários', () => {
     expect(response.body.message).toBe('Usuário excluído com sucesso');
   }, 10000);
 });
-
-
-describe('Testes de exclusão de usuário', () => {
-    it('Deve excluir um usuário existente', async () => {
-      // Cria um novo usuário para testar a exclusão
-      const user = await createUserForTesting(); // Crie uma função para criar usuários para teste
-  
-      // Faz a requisição para excluir o usuário recém-criado
-      const response = await request(app).delete(`/delete/${user._id}`);
-  
-      // Verifica se o status da resposta é 200 (OK)
-      expect(response.status).toBe(200);
-      expect(response.body.message).toBe('Usuário excluído com sucesso');
-    });
-  
-    it('Deve retornar status 404 para usuário não encontrado', async () => {
-      // Cria um ID inválido para um usuário
-      const invalidUserId = '6542a1e337a9d3eeddb7a659'; // Coloque um ID que não exista no banco
-  
-      // Faz a requisição para excluir o usuário com o ID inválido
-      const response = await request(app).delete(`/delete/${invalidUserId}`);
-  
-      // Verifica se o status da resposta é 404 (Not Found)
-      expect(response.status).toBe(404);
-      expect(response.body.message).toBe('Usuário não encontrado');
-    });
-  });

@@ -14,7 +14,7 @@
   "main": "app.js",
   "scripts": {
     "start": "node src/app.js -w",
-    "test": "jest"
+    "test": "jest --detectOpenHandles"
   },
   "author": "Pablo Soares",
   "license": "ISC",
