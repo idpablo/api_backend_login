@@ -21,9 +21,10 @@ jobs:
         name: mongodb_container
         args: mongod --noauth 
         options: -d -p 27017:27017
-    
+
+    - uses: actions/checkout@v3
     - name: Configure Node.js environment
-        uses: actions/setup-node@v2
+      uses: actions/setup-node@v2
     - name: Install dependencies
       run: npm install
     - name: Run tests
