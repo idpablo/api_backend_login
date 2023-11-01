@@ -22,6 +22,7 @@ exports.register = async (req, res) => {
 
 };
 
+// Sistema de Login
 exports.login = async (req, res) => {
   const { email, password } = req.body;
 
@@ -42,7 +43,7 @@ exports.login = async (req, res) => {
   }
 };
 
-// Exclusão de usuário
+// Exclusão de usuário nao funcional
 exports.deleteUser = async (req, res) => {
   const userId = req.params.userId;
 
