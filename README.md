@@ -29,8 +29,8 @@ npm install
 ### Iniciar Banco MongoDB
 
 ```bash
-cd mongo
-docker compose up -d
+docker build -t mongodb .
+docker run -d -p 27017:27017 --name mongodb_container mongodb
 ```
 
 ### Iniciar aplicação
@@ -38,3 +38,8 @@ docker compose up -d
 ```bash
 npm start
 ```
+
+### Documentação
+
+[Mongoose](https://mongoosejs.com/docs/)
+[NodeJS](https://nodejs.org/en/docs)
