@@ -17,4 +17,4 @@ jobs:
     - name: Build the Docker image
       run: |
            docker build -t mondodb f Dockerfile .
-           docker run -d -p 27017:27017 --name mongodb_container mongodb
+    
