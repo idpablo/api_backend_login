@@ -1,0 +1,24 @@
+name: Portifolio CI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Docker Run
+      uses: tj-actions/docker-run@v2.2.1
+      with:
+        image: mongo
+        name: mongodb_container
+        args: mongod --noauth 
+        options: -d -p 27017:27017
+        
