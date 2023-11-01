@@ -41,5 +41,4 @@ npm start
 
 ### Documentação
 
-[Mongoose](https://mongoosejs.com/docs/)
-[NodeJS](https://nodejs.org/en/docs)
+[Mongoose](https://mongoosejs.com/docs/) | [NodeJS](https://nodejs.org/en/docs)
