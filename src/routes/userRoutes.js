@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController.js');
+const authenticate = require('../middlewares/authenticate.js');
 
 const db = require('../config/db.js');
 
@@ -8,9 +9,9 @@ router.post('/register', userController.register);
 
 router.post('/login', userController.login);
 
-router.delete('/delete', userController.deleteUser);
+router.delete('/delete',  authenticate, userController.deleteUser);
 
-router.get('/test-db-connection', (req, res) => {
+router.get('/test-db-connection', authenticate, (req, res) => {
     db.connectDB()
       .then(() => {
         res.sendStatus(200); // Conexão bem-sucedida
