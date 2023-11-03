@@ -45,14 +45,20 @@ exports.login = async (req, res) => {
 
 // Exclusão de usuário nao funcional
 exports.deleteUser = async (req, res) => {
-  const userId = req.params.userId;
-
-  console.log('Id: ', userId)
+  const { username } = req.body;
 
   try {
-    await User.findOneAndDelete(userId);
-    res.status(200).json({ message: 'Usuário excluído com sucesso' });
+    const user = await User.findOne({ username });
+
+    if (!user) {
+      return res.status(404).json({ message: 'Usuário não encontrado' });
+    }
+
+    await User.findOneAndDelete({ username });
+
+    return res.status(200).json({ message: 'Usuário excluído com sucesso' });
+
   } catch (err) {
-    res.status(500).json({ error: err.message });
+    return res.status(500).json({ error: err.message });
   }
 };

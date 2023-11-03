@@ -13,7 +13,7 @@
   "description": "Portifolio para apresentação de projetos e contatos",
   "main": "app.js",
   "scripts": {
-    "start": "node src/app.js -w",
+    "start": "node src/server.js -w",
     "test": "jest --detectOpenHandles"
   },
   "author": "Pablo Soares",

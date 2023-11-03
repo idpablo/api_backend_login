@@ -8,7 +8,7 @@ router.post('/register', userController.register);
 
 router.post('/login', userController.login);
 
-router.delete('/delete/:userId', userController.deleteUser);
+router.delete('/delete', userController.deleteUser);
 
 router.get('/test-db-connection', (req, res) => {
     db.connectDB()

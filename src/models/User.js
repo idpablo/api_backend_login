@@ -1,7 +1,8 @@
-const {mongoose, createConnection} = require('mongoose');
-const db = require('../config/db.js');
+const mongoose = require('mongoose');
+// const db = require('../config/db.js');
 
-db.connectDB()
+// db.connectDB()
+mongoose.connect('mongodb://localhost:27017/potifolio')
 
 const userSchema = new mongoose.Schema({
   username: {
@@ -19,8 +20,7 @@ const userSchema = new mongoose.Schema({
   }
 });
 
-
-mongoose.connection.close()
+// mongoose.connection.close()
 
 const User = mongoose.model('User', userSchema);
 
