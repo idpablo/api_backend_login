@@ -38,6 +38,24 @@ describe('Testes de criação e exclusão de usuário', () => {
     token = response.body.token;
   }, 10000);
 
+  it('Deve criar o corpo do email para realziar o envio', async () => {
+
+    const mailSend =  {
+      from:' from@teste.com',
+      to: 'to@teste.com',
+      subject: 'Teste de envio de email!',
+      text: 'Corpo do email'
+    };
+
+    const response = await request(app)
+      .post('/sendmail')
+      .set('Authorization', `${token}`) 
+      .send(mailSend);
+
+    expect(response.statusCode).toBe(201);
+    expect(response.body.message).toBe('Dados para envio de email armazenados!');
+  }, 10000);
+
   it('Deve se conectar ao banco de dados', async () => {
     const response = await request(app)
       .get('/test-db-connection') // Rota para verificar a conexão com o banco

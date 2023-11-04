@@ -4,7 +4,7 @@ exports.send = async (req, res) => {
 
     try {
         const {from, to, subject, text} = req.body;
-        const { status } = 'processing';
+        const status = 'processing';
 
         const mail = new Mail({
             from,
