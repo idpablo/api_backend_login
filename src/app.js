@@ -4,7 +4,6 @@ const userRoutes = require('./routes/userRoutes.js');
 const mailRoutes = require('./routes/mailRoutes.js')
 
 const app = express();
-const PORT = 3001;
 
 app.use(bodyParser.json());
 app.use(userRoutes);
