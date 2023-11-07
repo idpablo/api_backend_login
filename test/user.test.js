@@ -91,8 +91,6 @@ describe('Testes de criação e exclusão de usuários', () => {
         .delete('/delete')
         .set('Authorization', `${token}`) 
         .send(deleteUser);
-        
-      console.log(`Excluindo usuario ${deleteUser}`)
 
       if (response.statusCode == 200){
         console.log(`Usuario ${deleteUser.username} excluido!`);
@@ -100,17 +98,7 @@ describe('Testes de criação e exclusão de usuários', () => {
       }else if(response.statusCode == 500){
         console.log(`Usuario ${deleteUser.username} não foi excluido!`);
       };
-        
-      
-        // expect(response.body.message).toBe('Usuário excluído com sucesso');
-
-        responseCodeList.push(response)
-        
-      };
-      
-      // expect().toBe(200);
-
-
+    };
   }, 10000);
 });
 
