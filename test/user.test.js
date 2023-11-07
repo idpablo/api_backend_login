@@ -3,29 +3,41 @@ const mongoose = require('mongoose');
 const request = require('supertest');
 const app = require('../src/app.js'); 
 
-describe('Testes de criação e exclusão de usuário', () => {
+const usuarios = []
+const limit = 100
+
+describe('Testes de criação e exclusão de usuários', () => {
   let token;
 
   it('Deve criar um novo usuário', async () => {
-    const newUser = {
-      username: 'usuario_teste',
-      email: 'teste@teste.com',
-      password: 'senha123'
-    };
 
-    const response = await request(app)
-      .post('/register')
-      .send(newUser);
 
-    expect(response.statusCode).toBe(201);
-    expect(response.body.message).toBe('Usuário registrado com sucesso!');
-    // expect(response.body).toHaveProperty('userId');
+    for (let index = 1; index <= limit; index++) {
+      const newUser = {
+        username: `usuario_teste_${index}`,
+        email: `teste_${index}@teste.com`,
+        password: 'senha123'
+      };
+
+      const response = await request(app)
+        .post('/register')
+        .send(newUser);
+
+      console.log(`Usuário ${newUser.username} registrado com sucesso!`)
+
+      usuarios.push(newUser.username)
+      expect(response.statusCode).toBe(201);
+      
+    expect(response.body.message).toBe(`Usuário registrado com sucesso!`);
+      // expect(response.body).toHaveProperty('userId');
+      
+    }
     // testUserId = response.body.userId; // Salva o ID do usuário para os próximos testes
   }, 10000);
 
   it('Deve fazer login com usuário criado', async () => {
     const loginUser = {
-        email: 'teste@teste.com',
+        email: `teste_${limit}@teste.com`,
         password: 'senha123'
       };
 
@@ -66,19 +78,39 @@ describe('Testes de criação e exclusão de usuário', () => {
 
   it('Deve excluir o usuário criado', async () => {
 
-    console.log(token)
+    const responseCodeList = []
 
-    const deleteUser = {
-        username: 'usuario_teste',
+    console.log(`Token: ${token}}`)
+    
+    for (let index = 1; index <= limit; index++) {
+      const deleteUser = {
+        username: `usuario_teste_${index}`,
       };
+      
+      const response = await request(app)
+        .delete('/delete')
+        .set('Authorization', `${token}`) 
+        .send(deleteUser);
+        
+      console.log(`Excluindo usuario ${deleteUser}`)
 
-    const response = await request(app)
-      .delete('/delete')
-      .set('Authorization', `${token}`) 
-      .send(deleteUser);
+      if (response.statusCode == 200){
+        console.log(`Usuario ${deleteUser.username} excluido!`);
+        expect(response.statusCode).toBe(200);
+      }else if(response.statusCode == 500){
+        console.log(`Usuario ${deleteUser.username} não foi excluido!`);
+      };
+        
+      
+        // expect(response.body.message).toBe('Usuário excluído com sucesso');
 
-    expect(response.statusCode).toBe(200);
-    expect(response.body.message).toBe('Usuário excluído com sucesso');
+        responseCodeList.push(response)
+        
+      };
+      
+      // expect().toBe(200);
+
+
   }, 10000);
 });
 

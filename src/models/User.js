@@ -1,13 +1,12 @@
 const mongoose = require('mongoose');
-// const db = require('../config/db.js');
 
-// db.connectDB()
 mongoose.connect('mongodb://localhost:27017/potifolio')
 
 const userSchema = new mongoose.Schema({
   username: {
     type: String,
-    required: true
+    required: true,
+    unique: true
   },
   email: {
     type: String,
@@ -19,8 +18,6 @@ const userSchema = new mongoose.Schema({
     required: true
   }
 });
-
-// mongoose.connection.close()
 
 const User = mongoose.model('User', userSchema);
 
